@@ -11,7 +11,7 @@ load_dotenv()
 
 file_path = 'example.pdf'
 
-def summarize_pdf(file_path, ai='OpenAI'):
+def summarize_pdf(file_path, ai='Claude'):
     loader = PyPDFLoader(file_path)
     docs = loader.load_and_split()
     
@@ -21,18 +21,13 @@ def summarize_pdf(file_path, ai='OpenAI'):
         llm = ChatAnthropic(temperature=0, model_name="claude-3.5-haiku-latest")
     else:
         print("error")
-        break
-
+        return None
 
     chain = load_summarize_chain(llm=llm, chain_type='map_reduce')
     summary = chain.invoke(docs)
 
     return summary
 
-
-
-
-
 if __name__ == '__main__':
-    summary = summarize_pdf()
+    summary = summarize_pdf(file_path)
     print('Summary: %s' % summary)
