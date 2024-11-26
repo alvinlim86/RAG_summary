@@ -23,6 +23,7 @@ def summarize_pdf(file_path, ai='OpenAI'):
         print("error")
         break
 
+
     chain = load_summarize_chain(llm=llm, chain_type='map_reduce')
     summary = chain.invoke(docs)
 
